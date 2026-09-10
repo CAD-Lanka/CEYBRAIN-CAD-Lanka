@@ -155,7 +155,7 @@ export default async function ServicesPage() {
                         {service.description}
                       </p>
                       {service.bullets?.length > 0 && (
-                        <ul className="font-label-mono text-label-mono text-on-surface-variant space-y-xs mb-lg">
+                        <ul className="font-body-md text-body-md text-on-surface-variant space-y-xs mb-lg">
                           {service.bullets.map((b) => (
                             <li key={b} className="flex items-center gap-sm">
                               <span className="w-1.5 h-1.5 bg-secondary block flex-shrink-0" />

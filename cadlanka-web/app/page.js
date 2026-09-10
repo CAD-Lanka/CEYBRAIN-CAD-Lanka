@@ -190,7 +190,7 @@ export default async function HomePage() {
                         <p className="font-body-md text-body-md text-on-surface-variant mb-md flex-grow">{service.description}</p>
                         <ul className="flex flex-col gap-xs mb-lg">
                           {service.bullets.map((b) => (
-                            <li key={b} className="flex items-center gap-sm font-label-mono text-label-mono text-on-surface-variant">
+                            <li key={b} className="flex items-center gap-sm font-body-md text-body-md text-on-surface-variant">
                               <span className="w-1.5 h-1.5 bg-secondary block flex-shrink-0" />
                               {b}
                             </li>
