@@ -32,6 +32,17 @@ export default {
       validation: (R) => R.required(),
     },
     {
+      name: 'projectPdf',
+      title: 'Project PDF',
+      type: 'file',
+      options: { accept: '.pdf' },
+      description: 'Upload a PDF drawing, report, or brochure to display on this public project page.',
+      validation: (R) => R.custom((file) => {
+        if (!file?.asset?._ref) return true;
+        return file.asset._ref.endsWith('-pdf') || 'Please upload a .pdf file.';
+      }),
+    },
+    {
       name: 'ifcModel',
       title: '3D Model (IFC)',
       type: 'file',
