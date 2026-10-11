@@ -46,7 +46,12 @@ next-env.d.ts
 # dev only routes, guides & one-off migration scripts
 /app/dev/
 /scripts/
+!/scripts/
+/scripts/*
+!/scripts/copy-ifc-wasm.cjs
 CLIENT_USER_GUIDE.md
 *USER_GUIDE.md
 CEYBRAIN_PORTFOLIO_SHOWCASE.md
 
+# Generated from the pinned web-ifc dependency during install/build
+/public/ifc/
