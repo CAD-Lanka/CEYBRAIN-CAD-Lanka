@@ -53,6 +53,7 @@ export async function getProjectBySlug(slug) {
       heroImage,
       gallery,
       "ifcModel": ifcModel.asset->{url, originalFilename, size},
+      "projectPdf": projectPdf.asset->{url, originalFilename, size},
       specifications,
       technicalExecution,
     }
