@@ -2,6 +2,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/Breadcrumb';
 import ProjectGallery from '@/components/ProjectGallery';
+import IfcViewer from '@/components/IfcViewer';
 import Link from 'next/link';
 import { getProjectBySlug, getAllProjectSlugs, urlFor } from '@/lib/sanity';
 import { notFound } from 'next/navigation';
@@ -171,6 +172,9 @@ export default async function ProjectDetailPage({ params }) {
               )}
 
               {/* Technical Gallery Component — §17.3 */}
+              {project.ifcModel?.url && (
+                <IfcViewer model={project.ifcModel} title={project.title} />
+              )}
               <ProjectGallery gallery={project.gallery} />
 
               {/* Back to Projects */}

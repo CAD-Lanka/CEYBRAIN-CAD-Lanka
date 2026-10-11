@@ -32,6 +32,17 @@ export default {
       validation: (R) => R.required(),
     },
     {
+      name: 'ifcModel',
+      title: '3D Model (IFC)',
+      type: 'file',
+      options: { accept: '.ifc' },
+      description: 'Upload an IFC model to show a public interactive 3D viewer on this project. The uploaded file is publicly accessible. Recommended size: under 50 MB.',
+      validation: (R) => R.custom((file) => {
+        if (!file?.asset?._ref) return true;
+        return file.asset._ref.endsWith('-ifc') || 'Please upload an .ifc file.';
+      }),
+    },
+    {
       name: 'client',
       title: 'Client',
       type: 'string',
