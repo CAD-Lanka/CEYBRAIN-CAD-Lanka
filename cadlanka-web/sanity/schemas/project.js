@@ -93,8 +93,8 @@ export default {
     },
     {
       name: 'gallery',
-      title: 'Technical Gallery',
-      description: 'Array of technical gallery images. Supports drag-to-reorder in Studio.',
+      title: 'Project Pictures',
+      description: 'Upload pictures to appear below the project details and above Project Overview. Add captions and drag to reorder.',
       type: 'array',
       of: [
         {
