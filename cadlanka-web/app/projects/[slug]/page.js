@@ -133,6 +133,9 @@ export default async function ProjectDetailPage({ params }) {
                 </div>
               </div>
 
+              {/* Project pictures directly below the metadata */}
+              <ProjectGallery gallery={project.gallery} />
+
               {/* Project Overview */}
               {project.description && (
                 <section aria-labelledby="overview-heading">
@@ -175,7 +178,6 @@ export default async function ProjectDetailPage({ params }) {
               {project.ifcModel?.url && (
                 <IfcViewer model={project.ifcModel} title={project.title} />
               )}
-              <ProjectGallery gallery={project.gallery} />
 
               {/* Back to Projects */}
               <div className="pt-md border-t border-outline-variant">
