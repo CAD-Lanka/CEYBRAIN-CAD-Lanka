@@ -13,7 +13,9 @@ export async function generateStaticParams() {
   try {
     const slugs = await getAllProjectSlugs();
     if (slugs && slugs.length > 0) {
-      return slugs.map((s) => ({ slug: s.slug }));
+      return slugs
+        .filter((s) => typeof s.slug === 'string' && s.slug.trim().length > 0)
+        .map((s) => ({ slug: s.slug }));
     }
   } catch {
     // Sanity unconfigured or empty
