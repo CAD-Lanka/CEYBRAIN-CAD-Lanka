@@ -64,7 +64,7 @@ export async function getProjectBySlug(slug) {
 /** Fetch all project slugs for static generation */
 export async function getAllProjectSlugs() {
   return client.fetch(`
-    *[_type == "project"] { "slug": slug.current }
+    *[_type == "project" && defined(slug.current) && slug.current != ""] { "slug": slug.current }
   `);
 }
 
