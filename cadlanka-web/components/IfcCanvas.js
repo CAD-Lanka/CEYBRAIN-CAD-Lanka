@@ -45,6 +45,7 @@ export default function IfcCanvas({ url }) {
     reset.current = fit;
 
     async function load() {
+      let stage = 'graphics';
       try {
         renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -69,6 +70,7 @@ export default function IfcCanvas({ url }) {
           frame = requestAnimationFrame(animate);
         };
         animate();
+        stage = 'download';
         const response = await fetch(url, { signal: abort.signal });
         if (!response.ok) throw new Error('The model could not be downloaded.');
         const data = new Uint8Array(await response.arrayBuffer());
@@ -76,6 +78,7 @@ export default function IfcCanvas({ url }) {
         setStatus('Preparing 3D geometry…');
         // Allow the status to paint before the IFC parser starts.
         await new Promise(resolve => requestAnimationFrame(resolve));
+        stage = 'engine';
         api.SetWasmPath('/ifc/');
         await api.Init(undefined, true);
         initialized = true;
@@ -84,6 +87,7 @@ export default function IfcCanvas({ url }) {
           initialized = false;
           return;
         }
+        stage = 'geometry';
         modelID = api.OpenModel(data, { COORDINATE_TO_ORIGIN: true });
         const materials = new Map();
         api.StreamAllMeshes(modelID, flatMesh => {
@@ -121,7 +125,13 @@ export default function IfcCanvas({ url }) {
       } catch (err) {
         if (stopped) return;
         console.error('IFC viewer:', err);
-        setError('Unable to display this model. Please try a desktop browser or reload the page.');
+        const messages = {
+          graphics: '3D graphics (WebGL 2) could not start. Enable graphics acceleration in your browser settings, restart the browser, and try again.',
+          download: 'The IFC file could not be loaded. Check your connection and reload this page.',
+          engine: 'The IFC engine could not start. Reload the page. If this continues, share this message with CAD Lanka.',
+          geometry: 'The IFC model could not be processed. Share this message with CAD Lanka so we can check the model.',
+        };
+        setError(messages[stage]);
         setStatus('');
       }
     }
