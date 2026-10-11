@@ -8,14 +8,7 @@ export default {
       name: 'title',
       title: 'Category Name',
       type: 'string',
-      options: {
-        list: [
-          { title: 'Railway', value: 'Railway' },
-          { title: 'Tram Systems', value: 'Tram Systems' },
-          { title: 'Overhead Line', value: 'Overhead Line' },
-          { title: 'Components', value: 'Components' },
-        ],
-      },
+      description: 'Enter a category name, e.g. Railway, MEP Engineering, or BIM & Revit.',
       validation: (R) => R.required(),
     },
   ],
