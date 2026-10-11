@@ -5,10 +5,13 @@ import Link from 'next/link';
 import ScrollReveal from '@/components/ScrollReveal';
 import { urlFor } from '@/lib/sanity';
 
-const CATEGORIES = ['All Projects', 'Railway', 'Tram Systems', 'Overhead Line', 'Components'];
-
 export default function ProjectsGrid({ projects = [] }) {
   const [activeFilter, setActiveFilter] = useState('All Projects');
+
+  const categories = useMemo(() => [
+    'All Projects',
+    ...new Set((projects || []).map((project) => project.category).filter((category) => category && category !== 'All Projects')),
+  ], [projects]);
 
   const filtered = useMemo(() => {
     const list = projects || [];
@@ -20,7 +23,7 @@ export default function ProjectsGrid({ projects = [] }) {
     <>
       {/* Filter bar */}
       <div className="flex flex-wrap gap-sm mb-lg border-b border-outline-variant pb-md" role="tablist" aria-label="Project category filters">
-        {CATEGORIES.map((cat) => (
+        {categories.map((cat) => (
           <button
             key={cat}
             role="tab"
