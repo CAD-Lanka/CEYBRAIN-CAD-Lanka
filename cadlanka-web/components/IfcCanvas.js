@@ -79,7 +79,8 @@ export default function IfcCanvas({ url }) {
         // Allow the status to paint before the IFC parser starts.
         await new Promise(resolve => requestAnimationFrame(resolve));
         stage = 'engine';
-        api.SetWasmPath('/ifc/');
+        // Resolve from the site root rather than the Next.js chunk directory.
+        api.SetWasmPath('/ifc/', true);
         await api.Init(undefined, true);
         initialized = true;
         if (stopped) {
