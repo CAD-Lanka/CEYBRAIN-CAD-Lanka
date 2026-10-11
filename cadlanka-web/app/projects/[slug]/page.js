@@ -13,7 +13,9 @@ export async function generateStaticParams() {
   try {
     const slugs = await getAllProjectSlugs();
     if (slugs && slugs.length > 0) {
-      return slugs.map((s) => ({ slug: s.slug }));
+      return slugs
+        .filter((s) => typeof s.slug === 'string' && s.slug.trim().length > 0)
+        .map((s) => ({ slug: s.slug }));
     }
   } catch {
     // Sanity unconfigured or empty
@@ -177,6 +179,23 @@ export default async function ProjectDetailPage({ params }) {
               {/* Technical Gallery Component — §17.3 */}
               {project.ifcModel?.url && (
                 <IfcViewer model={project.ifcModel} title={project.title} />
+              )}
+
+              {project.projectPdf?.url && (
+                <section aria-labelledby="pdf-heading" className="bg-surface-container-lowest border border-outline-variant rounded overflow-hidden">
+                  <div className="p-md border-b border-outline-variant">
+                    <h2 id="pdf-heading" className="font-headline-sm text-headline-sm text-primary">Project PDF</h2>
+                    <p className="font-body-sm text-body-sm text-on-surface-variant mt-sm">
+                      {project.projectPdf.originalFilename}
+                    </p>
+                    <a href={project.projectPdf.url} target="_blank" rel="noopener noreferrer" className="inline-block mt-sm text-primary underline">
+                      Open PDF in a new tab
+                    </a>
+                  </div>
+                  <object data={project.projectPdf.url} type="application/pdf" aria-label={`PDF for ${project.title}`} className="block w-full h-[480px] sm:h-[650px]">
+                    <p className="p-md text-on-surface-variant">Your browser cannot display this PDF here. Use “Open PDF in a new tab” above.</p>
+                  </object>
+                </section>
               )}
 
               {/* Back to Projects */}
