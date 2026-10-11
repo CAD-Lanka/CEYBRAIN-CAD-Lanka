@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "postinstall": "node scripts/copy-ifc-wasm.cjs",
+    "predev": "node scripts/copy-ifc-wasm.cjs",
+    "prebuild": "node scripts/copy-ifc-wasm.cjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -17,7 +20,9 @@
     "react-dom": "^19.2.8",
     "resend": "^6.20.0",
     "sanity": "^3.99.0",
-    "styled-components": "^6.5.3"
+    "styled-components": "^6.5.3",
+    "three": "0.180.0",
+    "web-ifc": "0.0.78"
   },
   "devDependencies": {
     "eslint": "^8",
